@@ -10,13 +10,13 @@ RUN apt-get update && apt-get install -y \
 	sox \
 	libsox-fmt-mp3 \
 	ffmpeg \
+	supervisor \
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
     && docker-php-ext-install -j$(nproc) pdo_mysql
 
 RUN apt-get install vim -y
 
 #supervisord
-RUN apt-get install -y supervisor
 RUN mkdir -p /var/log/supervisor
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
