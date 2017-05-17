@@ -12,8 +12,31 @@ RUN apt-get update && apt-get install -y \
 	supervisor \
 	python-pip \
 	vim \
+	wget \
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
     && docker-php-ext-install -j$(nproc) pdo_mysql
+
+# ffmpeg is not available as a package for Debian Jessie,
+# so we have to compile from source.
+RUN echo "deb http://www.deb-multimedia.org jessie main non-free" >> /etc/apt/sources.list
+RUN echo "deb-src http://www.deb-multimedia.org jessie main non-free" >> /etc/apt/sources.list
+RUN apt-get update && \
+apt-get install -y --force-yes deb-multimedia-keyring && \
+apt-get update && \
+apt-get remove -y ffmpeg && \
+apt-get install -y build-essential libmp3lame-dev libvorbis-dev libtheora-dev libspeex-dev yasm pkg-config libfaac-dev libopenjpeg-dev libx264-dev
+RUN mkdir software && \
+	cd software && \
+	wget http://ffmpeg.org/releases/ffmpeg-2.7.2.tar.bz2 && \
+	cd .. && \
+	mkdir src && \
+	cd src && \
+	tar xvjf ../software/ffmpeg-2.7.2.tar.bz2 && \
+	cd ffmpeg-2.7.2 && \
+	./configure --enable-gpl --enable-postproc --enable-swscale --enable-avfilter --enable-libmp3lame --enable-libvorbis --enable-libtheora --enable-libx264 --enable-libspeex --enable-shared --enable-pthreads --enable-libopenjpeg --enable-libfaac --enable-nonfree && \
+	make && \
+	make install
+RUN /sbin/ldconfig
 
 #supervisord
 RUN mkdir -p /var/log/supervisor
