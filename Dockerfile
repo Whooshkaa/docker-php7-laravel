@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y \
 	vim \
 	wget \
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
-    && docker-php-ext-install -j$(nproc) pdo_mysql
+    && docker-php-ext-install -j$(nproc) pdo_mysql \
+    && pip install awscli
 
 # ffmpeg is not available as a package for Debian Jessie,
 # so we have to compile from source.
@@ -32,19 +33,20 @@ RUN mkdir software && \
 	mkdir src && \
 	cd src && \
 	tar xvjf ../software/ffmpeg-2.7.2.tar.bz2 && \
+	rm ../software/ffmpeg-2.7.2.tar.bz2 && \
 	cd ffmpeg-2.7.2 && \
 	./configure --enable-gpl --enable-postproc --enable-swscale --enable-avfilter --enable-libmp3lame --enable-libvorbis --enable-libtheora --enable-libx264 --enable-libspeex --enable-shared --enable-pthreads --enable-libopenjpeg --enable-libfaac --enable-nonfree && \
 	make && \
-	make install
-RUN /sbin/ldconfig
+	make install && \
+	/sbin/ldconfig && \
+	cd .. && \
+	rm -rf software && \
+	rm -rf src 
 
 #supervisord
 RUN mkdir -p /var/log/supervisor
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-# Python and aws cli to copy things from s3
-RUN pip install awscli
 
 RUN a2enmod rewrite
 
