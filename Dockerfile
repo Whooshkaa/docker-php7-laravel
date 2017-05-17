@@ -9,12 +9,11 @@ RUN apt-get update && apt-get install -y \
         libpng12-dev \
 	sox \
 	libsox-fmt-mp3 \
-	ffmpeg \
 	supervisor \
+	python-pip \
+	vim \
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
     && docker-php-ext-install -j$(nproc) pdo_mysql
-
-RUN apt-get install vim -y
 
 #supervisord
 RUN mkdir -p /var/log/supervisor
@@ -22,7 +21,6 @@ RUN mkdir -p /var/log/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Python and aws cli to copy things from s3
-RUN apt-get -y install python-pip
 RUN pip install awscli
 
 RUN a2enmod rewrite
