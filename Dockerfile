@@ -1,6 +1,6 @@
 FROM php:7-apache
 MAINTAINER Phil Dodd "phil@whooshkaa.com"
-ENV REFRESHED_AT 2017-05-17
+ENV REFRESHED_AT 2017-08-15
 
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
