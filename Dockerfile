@@ -50,5 +50,8 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN a2enmod rewrite
 
+COPY php-cli.ini /usr/local/etc/php/php.ini
+RUN touch /var/log/php_errors.log
+
 CMD ["/usr/bin/supervisord"]
 
