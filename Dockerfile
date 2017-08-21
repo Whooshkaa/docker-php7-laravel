@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
+        libzip-dev \
         libpng12-dev \
 	sox \
 	libsox-fmt-mp3 \
@@ -15,6 +16,7 @@ RUN apt-get update && apt-get install -y \
 	wget \
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
+    && docker-php-ext-install -j$(nproc) zip \
     && pip install awscli
 
 # ffmpeg is not available as a package for Debian Jessie,
