@@ -1,4 +1,4 @@
-FROM php:7-apache
+FROM php:7.1.23-apache-jessie
 MAINTAINER Phil Dodd "phil@whooshkaa.com"
 ENV REFRESHED_AT 2017-08-15
 
