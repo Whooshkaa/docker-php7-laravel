@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
         libzip-dev \
-        libpng12-dev \
+        libpng-dev \
 	sox \
 	libsox-fmt-mp3 \
 	supervisor \
