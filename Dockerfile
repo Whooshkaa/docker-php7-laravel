@@ -1,6 +1,6 @@
 FROM php:7.1.23-apache-jessie
 MAINTAINER Phil Dodd "phil@whooshkaa.com"
-ENV REFRESHED_AT 2017-08-15
+ENV REFRESHED_AT 2019-07-03
 
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
