@@ -2,6 +2,7 @@ FROM php:7.1.23-apache-jessie
 MAINTAINER Phil Dodd "phil@whooshkaa.com"
 ENV REFRESHED_AT 2019-07-03
 
+RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
