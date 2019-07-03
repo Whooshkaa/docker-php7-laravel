@@ -23,13 +23,15 @@ RUN apt-get update && apt-get install -y \
 
 # ffmpeg is not available as a package for Debian Jessie,
 # so we have to compile from source.
+
+RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\n" > /etc/apt/sources.list
 RUN echo "deb http://www.deb-multimedia.org jessie main non-free" >> /etc/apt/sources.list
 RUN echo "deb-src http://www.deb-multimedia.org jessie main non-free" >> /etc/apt/sources.list
-RUN apt-get update && \
-apt-get install -y --force-yes deb-multimedia-keyring && \
+RUN apt-get update
+RUN apt-get install -y --force-yes deb-multimedia-keyring && \
 apt-get update && \
 apt-get remove -y ffmpeg && \
-apt-get install -y build-essential libmp3lame-dev libvorbis-dev libtheora-dev libspeex-dev yasm pkg-config libfaac-dev libopenjpeg-dev libx264-dev
+apt-get install -y --force-yes build-essential libmp3lame-dev libvorbis-dev libtheora-dev libspeex-dev yasm pkg-config libfaac-dev libopenjpeg-dev libx264-dev
 RUN mkdir software && \
 	cd software && \
 	wget http://ffmpeg.org/releases/ffmpeg-2.7.2.tar.bz2 && \
