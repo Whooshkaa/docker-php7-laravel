@@ -1,6 +1,6 @@
-FROM php:7.2.22-fpm-stretch
+FROM php:7.4.1-fpm-buster
 MAINTAINER Phil Dodd "phil@whooshkaa.com"
-ENV REFRESHED_AT 2019-09-25
+ENV REFRESHED_AT 2020-01-22
 
 ENV PHP_OPCACHE_VALIDATE_TIMESTAMPS="0" \
     PHP_OPCACHE_MAX_ACCELERATED_FILES="10000" \
@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 	wget \
         libfcgi0ldbl \
         ffmpeg \
-    && docker-php-ext-install -j$(nproc) iconv pdo_mysql zip bcmath opcache\ 
+    && docker-php-ext-install -j$(nproc) iconv pdo_mysql zip bcmath opcache gd\ 
     && pip install awscli
 
 RUN mkdir -p /var/log/php
