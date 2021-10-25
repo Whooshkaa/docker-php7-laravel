@@ -1,4 +1,4 @@
-FROM php:7.4.15-fpm-buster
+FROM php:7.4.25-fpm-buster
 MAINTAINER Phil Dodd "phil@whooshkaa.com"
 ENV REFRESHED_AT 2020-01-22
 
